@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<script include='ui.js components.js' src='flav.js'></script>
+
+<x-component hidden></x-component>
+
+<script>
+ function component(p,e){
+  	 post('http://dpsw.info/resume.json', '', function(s){
+  	 	e.innerHTML = s.bio.firstName;
+  	 	e.hidden=0;
+  	 })
+  } 
+</script>
+
+<script src='flav.js'></script>
