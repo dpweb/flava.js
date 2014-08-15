@@ -43,6 +43,19 @@ render = function(id, o, isNew, cb) {
   });
 }
 
+// <script x-updates='/feed' x-process='funcname' src='flava.js'></script>
+var wsurl = d.querySelector('[x-updates]');
+if(wsurl){
+  var ev = new EventSource(wsurl.getAttribute('x-updates'));
+  var processfunc = wsurl.getAttribute('x-process');
+  ev.onmessage = function(e){
+    var data = JSON.parse(e.data);
+    if(processfunc)
+      data = window[processfunc](data);
+      render(data);
+  }  
+}
+
 var es = document.getElementsByTagName('*');
 var match = /^X\-(.*)/;
 [].slice.call(es).map(function(e) {
